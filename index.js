@@ -18,8 +18,7 @@ let selection = [0, 0, 9];
 
 function setup() {
     createCanvas(600, 600, WEBGL);
-    can = createGraphics(600, 600, P2D);
-    can.clear();
+    can = createGraphics(size, size, P2D);
     map = make3DArray(10, 10, 10);
     // Init map
     for(let x=0; x<map.length; x++) {

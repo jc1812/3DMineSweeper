@@ -6,7 +6,7 @@ function Cell(x, y, z, size) {
     this.z = z * size;
     this.size = size;
     this.neighbourCount = 0;
-    if(random(1) < 0.4) {
+    if(random(1) < 0.01) {
         this.bomb = true;
     } else {
         this.bomb = false;
@@ -28,13 +28,18 @@ Cell.prototype.show = function(selected) {
     if(this.revealed) {
         if(this.bomb) {
             //translate(this.size/2, this.size/2, this.size/2);
-            fill('rgba(0, 133, 255, 0.5)');
+            fill('rgba(255, 33, 0, 0.5)');
             sphere(11, 10, 10);
             //translate(-(this.size/2), -(this.size/2), -(this.size/2));
         } else {
-            /*textAlign(CENTER);
-            fill(0);
-            text(this.neighbourCount, this.x, this.y, )*/
+            if(this.neighbourCount > 0) {
+                can.background('rgba(251, 0, 133, 0.7)');
+                can.textAlign(CENTER, CENTER);
+                can.text(this.neighbourCount, 10, 10);
+                texture(can);
+                noStroke();
+                plane(15, 15);
+            }
         }
     } else {
         box(this.size);
@@ -60,7 +65,7 @@ Cell.prototype.countBombs = function() {
                 if(posX > -1 && posX < 10) {
                     if(posY > -1 && posY < 10) {
                         if(posZ > -1 && posZ < 10) {
-                            let neighbour = map[posX, posY, posZ];
+                            let neighbour = map[posX][posY][posZ];
                             if(neighbour.bomb) {
                                 total++;
                             }
