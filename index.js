@@ -114,6 +114,9 @@ function drawCrosshair() {
 function keyPressed() {
     if(keyCode === 32) {
         map[selection[0]][selection[1]][selection[2]].hit();
+        if(map[selection[0]][selection[1]][selection[2]].bomb) {
+            gameOver();
+        }
         //let hitCube = raytrace();
         //if(hitCube) map[hitCube[0]][hitCube[1]][hitCube[2]].hit();
         /*renderRay(this._renderer._curCamera.eyeX,
@@ -166,6 +169,16 @@ function moveOut() {
     --selection[2];
     if(selection[2] < 0) selection[2] = 9;
     //if(map[selection[0]][selection[1]][selection[2]].revealed) left();
+}
+
+function gameOver() {
+    for(let x=0; x<map.length; x++) {
+        for(let y=0; y<map[x].length; y++) {
+            for(let z=0; z<map[x][y].length; z++) {
+                map[x][y][z].revealed = true;
+            }
+        }
+    }
 }
 
 /*
