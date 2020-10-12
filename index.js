@@ -25,7 +25,15 @@ function setup() {
     for(let x=0; x<map.length; x++) {
         for(let y=0; y<map[x].length; y++) {
             for(let z=0; z<map[x][y].length; z++) {
-                map[x][y][z] = new Cell(x*size, y*size, z*size, size);
+                map[x][y][z] = new Cell(x, y, z, size);
+            }
+        }
+    }
+    // Get bomb counts for each cube
+    for(let x=0; x<map.length; x++) {
+        for(let y=0; y<map[x].length; y++) {
+            for(let z=0; z<map[x][y].length; z++) {
+                map[x][y][z].countBombs();
             }
         }
     }

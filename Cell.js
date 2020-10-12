@@ -1,9 +1,11 @@
 
 function Cell(x, y, z, size) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.index = [x, y, z];
+    this.x = x * size;
+    this.y = y * size;
+    this.z = z * size;
     this.size = size;
+    this.neighbourCount = 0;
     if(random(1) < 0.4) {
         this.bomb = true;
     } else {
@@ -29,6 +31,10 @@ Cell.prototype.show = function(selected) {
             fill('rgba(0, 133, 255, 0.5)');
             sphere(11, 10, 10);
             //translate(-(this.size/2), -(this.size/2), -(this.size/2));
+        } else {
+            /*textAlign(CENTER);
+            fill(0);
+            text(this.neighbourCount, this.x, this.y, )*/
         }
     } else {
         box(this.size);
@@ -39,6 +45,33 @@ Cell.prototype.show = function(selected) {
 
 Cell.prototype.hit = function() {
     this.revealed = true;
+}
+
+Cell.prototype.countBombs = function() {
+    if(this.bomb) return -1;
+    let total = 0;
+
+    for(let x=-1; x <= 1; x++) {
+        for(let y=-1; y <= 1; y++) {
+            for(let z=-1; z <= 1; z++) {
+                let posX = this.index[0]+x;
+                let posY = this.index[1]+y;
+                let posZ = this.index[2]+z;
+                if(posX > -1 && posX < 10) {
+                    if(posY > -1 && posY < 10) {
+                        if(posZ > -1 && posZ < 10) {
+                            let neighbour = map[posX, posY, posZ];
+                            if(neighbour.bomb) {
+                                total++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    this.neighbourCount = total;
 }
 
 // Creates 3d vectors for the top left and bottom right of the cube (defining a bounding box)
