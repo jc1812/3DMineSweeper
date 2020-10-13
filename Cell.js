@@ -6,6 +6,7 @@ function Cell(x, y, z, size) {
     this.z = z * size;
     this.size = size;
     this.neighbourCount = 0;
+    this.marked = false;
     if(random(1) < percentBombs) {
         this.bomb = true;
     } else {
@@ -22,7 +23,11 @@ Cell.prototype.show = function(selected) {
         box(this.size);
     } else {
         stroke(0);
-        fill('rgba(255, 255, 255, 0.5)');
+        if(this.marked) {
+            fill('rgba(8, 190, 19, 0.5)');
+        } else {
+            fill('rgba(255, 255, 255, 0.5)');
+        }
     }
 
     if(this.revealed) {
@@ -44,6 +49,14 @@ Cell.prototype.show = function(selected) {
     }
 
     translate(-this.x, -this.y, -this.z);
+}
+
+Cell.prototype.mark = function() {
+    if(this.marked) {
+        this.marked = false;
+    } else {
+        this.marked = true;
+    }
 }
 
 Cell.prototype.hit = function() {

@@ -62,6 +62,9 @@ function draw() {
 }
 
 function keyPressed() {
+    if(keyCode === 13) {
+        map[selection[0]][selection[1]][selection[2]].mark();
+    }
     if(keyCode === 32) {
         map[selection[0]][selection[1]][selection[2]].hit();
         if(map[selection[0]][selection[1]][selection[2]].bomb) {
