@@ -74,6 +74,7 @@ function keyPressed() {
     if(keyCode === RIGHT_ARROW) right();
     if(keyCode === 190) moveIn();
     if(keyCode === 188) moveOut();
+    return false;
 }
 
 function down() {
